@@ -11,12 +11,6 @@ export default function ProHeader() {
                         <span className="d-none d-md-block">Account</span>
                     </NavLink>
                 </li>
-                <li className="nav-item" >
-                    <NavLink to={'/main/profile/notification'} className="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center rounded-2 fs-3">
-                        <i className="ti ti-bell mx-2 mx-md-0 me-md-2 fs-6" />
-                        <span className="d-none d-md-block">Notifications</span>
-                    </NavLink>
-                </li>
                 <li className="nav-item">
                     <NavLink to={'/main/profile/bill'} className="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center rounded-2 fs-3">
                         <i className="ti ti-article mx-2 mx-md-0 me-md-2 fs-6" />

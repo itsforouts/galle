@@ -39,7 +39,7 @@ class PdfGenerator {
         doc.setTextColor("#000000");
 
         doc.setFontSize(20);
-        doc.text(`Total number of clients : ${data.length}`, 30, 135);
+        doc.text(`Total number of Items : ${data.length}`, 30, 135);
 
         // Add table with data
         doc.setTextColor("#999999");
@@ -53,6 +53,11 @@ class PdfGenerator {
                 if (propName === "created_at" && item[propName]) {
                     const formattedDate = DateFormatter.formatDate(item[propName]);
                     return formattedDate;
+                }
+                // Check if the header is 'toEmail' and return the email value
+                //if camelcase issue occurs because the header is lowercased so handled as below
+                 if (propName === "toemail") {
+                    return item["toEmail"];
                 }
                 return item[propName];
             })

@@ -18,12 +18,6 @@ export default function Header() {
                 </ul>
                 <div className="navbar-collapse justify-content-end px-0" id="navbarNav">
                     <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                        <li className="nav-item">
-                            <NavLink className="nav-link nav-icon-hover" >
-                                <i className="ti ti-bell-ringing" />
-                                <div className="notification bg-primary rounded-circle" />
-                            </NavLink>
-                        </li>
                         <li className="nav-item dropdown">
                             <NavLink className="nav-link nav-icon-hover" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src={'propic'} alt='prologo' width={35} height={35} className="rounded-circle" />
