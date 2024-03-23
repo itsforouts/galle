@@ -12,6 +12,9 @@ import NotAuthorized from './Pages/NotAuthorized/NotAuthorized'
 import Products from './Pages/UserStack/Home/Products'
 import Checkout from './Pages/UserStack/Checkout/Checkout'
 import Notification from './Pages/UserStack/Notification/Notification'
+import EmpManage from './Pages/AdminStack/EmpManage/EmpManage'
+import EditEmp from './Pages/AdminStack/EmpManage/EditEmp'
+import AddEmp from './Pages/AdminStack/EmpManage/AddEmp'
 
 function App() {
   return (
@@ -30,7 +33,10 @@ function App() {
             <Route path='notification' element={<Notification/>}/>
           </Route>
           <Route path='admin' element={<AdminStac />} >
-
+            <Route index element={<EmpManage/>} />
+            <Route path='employee' element={<EmpManage/>} />
+            <Route path='empAdd' element={<AddEmp/>} />
+            <Route path='empEdit/:id' element={<EditEmp/>} />
           </Route>
         </Route>
         <Route path='/notallowed' element={<NotAuthorized />} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import EmpManage from './EmpManage/EmpManage'
 import LocalStore from '../../Store/LocalStore';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 export default function AdminStac() {
   // Determine if the user has admin privileges
@@ -14,8 +14,7 @@ export default function AdminStac() {
 
   return (
     <>
-      {/* <EmpManage/> */}
-      <h1 className='mt-5'>Admiofdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfn</h1>
+      <Outlet />
     </>
   )
 }

@@ -25,11 +25,14 @@ export default function Login() {
             try {
                 const result = await AuthService.authLogin(values)
                 if (result.data.code === 201) {
-                    const { token, role,email } = result.data.data;
-                    LocalStore.storeToken({ token, role,email });
+                    const { token, role, email } = result.data.data;
+                    LocalStore.storeToken({ token, role, email });
                     Toaster.justToast('success', result.data.data.message, () => {
                         Toaster.dismissLoadingToast()
-                        navigate('/main/user/products')
+                        if (role === "user")
+                            navigate('/main/user/products')
+                        if (role === "admin")
+                            navigate('/main/admin/employee')
                     })
                 }
             } catch (error) {
@@ -93,7 +96,7 @@ export default function Login() {
                                                     name="role"
                                                     id="option1"
                                                     checked={values.role === 'user'}
-                                                    />
+                                                />
                                                 <label className="btn btn-success" htmlFor="option1">Users</label>
                                             </div>
                                             <div className="">

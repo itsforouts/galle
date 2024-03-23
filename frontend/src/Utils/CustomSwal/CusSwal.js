@@ -11,12 +11,6 @@ class CusSwal {
             width: "400px",
         })
         if (result.isConfirmed) {
-            // Swal.fire({
-            //     title: "Deleted!",
-            //     text: "Your file has been deleted.",
-            //     width: "350px",
-            //     confirmButtonColor: "#10b065",
-            // });
             //callBack
             onDeleteConfirmed()
         }

@@ -42,7 +42,7 @@ export default function Sidebar() {
                             isAdmin() ? (
                                 <>
                                     <li className="sidebar-item">
-                                        <NavLink to={'/main/employee'} className="sidebar-link" aria-expanded="false">
+                                        <NavLink to={'/main/admin/employee'} className="sidebar-link" aria-expanded="false">
                                             <span>
                                                 <i className="ti ti-user" />
                                             </span>
@@ -50,7 +50,7 @@ export default function Sidebar() {
                                         </NavLink>
                                     </li>
                                     <li className="sidebar-item">
-                                        <NavLink to={'/main/inventory'} className="sidebar-link" aria-expanded="false">
+                                        <NavLink to={'/main/admin/delivery'} className="sidebar-link" aria-expanded="false">
                                             <span>
                                                 <i className="ti ti-building-warehouse" />
                                             </span>
