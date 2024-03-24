@@ -1,3 +1,4 @@
+import Delivery from "../Modal/Delivery.js";
 import Notification from "../Modal/Notification.js";
 import Order from "../Modal/Order.js";
 import response from "../Utils/ResponseHandler/ResponseHandler.js";
@@ -76,7 +77,7 @@ class OrderController {
         try {
             const orders = await Order.find({}).populate(["orderedBy", "product"]);
             if (orders)
-                return response(res, 200, {orders});
+                return response(res, 200, { orders });
         } catch (error) {
             console.log(error);
             return response(res, 500, error);
@@ -96,6 +97,15 @@ class OrderController {
                 session.endSession();
                 return response(res, 404, ResTypes.errors.not_found);
             }
+
+            // Delete the corresponding delivery
+            // const deletedDelivery = await Delivery.findOneAndDelete({ order: oid }).session(session);
+            // if (!deletedDelivery) {
+            //     await session.abortTransaction();
+            //     session.endSession();
+            //     return response(res, 404, ResTypes.errors.not_found);
+            // }
+
             // Create and save a notification about the order deletion
             const notification = new Notification({
                 description: `Your order has been deleted. and delivery Canceled By Dilivery Manager`,

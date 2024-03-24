@@ -6,6 +6,7 @@ class NotificationService {
         BaseService.getBaseURL()
         this.GET_NOTI = "notification/getAllNotificationOfUser"
         this.NOTI_DONE = "notification/update"
+        this.DELETE_NOTI = "notification/delete"
     }
     getAllNotificationOfUser(input) {
         let data = {
@@ -19,6 +20,12 @@ class NotificationService {
             seen:true
         }
         return axios.put(this.NOTI_DONE,data,BaseService.getHeader())
+    }
+    deleteNoti(input) {
+        let data = {
+            nid: input
+        };
+        return axios.delete(this.DELETE_NOTI, { ...BaseService.getHeader(), data: data });
     }
 }
 export default NotificationService = new NotificationService();

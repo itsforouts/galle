@@ -4,8 +4,9 @@ import LocalStore from '../../../Store/LocalStore';
 import DateFormatter from '../../../Utils/Constants/DateFormatter';
 import Toaster from '../../../Utils/Constants/Toaster';
 import ResponseHandler from '../../../Utils/Constants/ResponseHandler';
-import {notiHeader}  from  '../../../Utils/Constants/TableHeaders'
+import { notiHeader } from '../../../Utils/Constants/TableHeaders'
 import PdfGenerator from '../../../Utils/Pdfs/PdfGenerator';
+import CusSwal from '../../../Utils/CustomSwal/CusSwal';
 
 export default function Notification() {
     // Fetch token data from LocalStore
@@ -14,9 +15,7 @@ export default function Notification() {
     const [loading, setLoading] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+   
     const fetchData = async () => {
         setLoading(true)
         try {
@@ -64,13 +63,32 @@ export default function Notification() {
         try {
             console.log(notis)
             PdfGenerator.generatePdf(notis, "Notification List", notiHeader)
-            Toaster.justToast('success', 'Creating The Pdf For You', () => {})
+            Toaster.justToast('success', 'Creating The Pdf For You', () => { })
         } catch (error) {
             Toaster.justToast('error', 'genration failed', () => { })
         } finally {
             Toaster.dismissLoadingToast()
         }
     }
+    const handleNotiDelete = (id) => {
+        CusSwal.deleteConfiramation(async () => {
+            Toaster.loadingToast('Deleting Notification.....')
+            try {
+                const result = await NotificationService.deleteNoti(id);
+                if (result) {
+                    Toaster.justToast('success', "Notification Deleted", () => { });
+                    fetchData();
+                }
+            } catch (error) {
+                ResponseHandler.handleResponse(error);
+            } finally {
+                Toaster.dismissLoadingToast()
+            }
+        });
+    };
+    useEffect(() => {
+        fetchData()
+    }, [])
     return (
         <>
             <div className="body-wrapper">
@@ -157,6 +175,13 @@ export default function Notification() {
                                                                                 </td>
                                                                             )
                                                                         }
+                                                                        <td>
+                                                                            <button type='button' onClick={() => {
+                                                                                handleNotiDelete(noti._id)
+                                                                            }} className='btn btn-danger'>
+                                                                                Delete
+                                                                            </button>
+                                                                        </td>
                                                                     </tr>
                                                                 )
                                                             })

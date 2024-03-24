@@ -61,9 +61,9 @@ class NotificationController {
     }
     // Delete notification by ID
     deleteNotification = async (req, res) => {
-        const { id } = req.body;
+        const { nid } = req.body;
         try {
-            const deletedNotification = await Notification.findOneAndDelete({ id });
+            const deletedNotification = await Notification.findOneAndDelete({ _id:nid });
             if (!deletedNotification) return response(res, 404, ResTypes.errors.not_found);
             return response(res, 200, ResTypes.successMessages.success);
         } catch (error) {

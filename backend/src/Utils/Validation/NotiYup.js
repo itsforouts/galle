@@ -21,7 +21,7 @@ class NotificationYup {
         email: yup.string().email().required(),
     })
     dltNotification = yup.object({
-        id: yup.string(),
+        nid: yup.string(),
     })
 }
 

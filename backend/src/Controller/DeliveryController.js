@@ -68,8 +68,6 @@ class DeliveryController {
     updateDelivery = async (req, res) => {
         const { oid, deliveryType } = req.body;
         try {
-            const delier = await Delivery.findOne({order:oid})
-            console.log(delier)
             const updatedDelivery = await Delivery.updateOne(
                 { order: oid }, 
                 { $set: { deliveryType: deliveryType } }
