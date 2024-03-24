@@ -20,8 +20,8 @@ class OrderYup {
         id: yup.string().required()
     });
 
-    deleteOrderSchema = yup.object({
-        id: yup.string().required()
+    deleteOrder = yup.object({
+        oid: yup.string().required()
     });
 }
 

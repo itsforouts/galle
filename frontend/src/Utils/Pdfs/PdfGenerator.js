@@ -59,6 +59,18 @@ class PdfGenerator {
                  if (propName === "toemail") {
                     return item["toEmail"];
                 }
+                if (propName === "postalcode") {
+                    return item["postalCode"];
+                }
+                if (propName === "homeaddress") {
+                    return item["homeAddress"];
+                }
+                if (propName === "orderedby") {
+                    return item["orderedBy"];
+                }
+                if (propName === "product") {
+                    return item["product.name"];
+                }
                 return item[propName];
             })
             return rowData

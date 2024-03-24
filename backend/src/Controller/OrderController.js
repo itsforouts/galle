@@ -12,7 +12,7 @@ class OrderController {
             // Start a MongoDB session
             session = await mongoose.startSession();
             session.startTransaction();
-            const {  orderedBy,product,cardNumber,cardName,cvc,homeAddress,postalCode,street,telephone,country,city, } = req.body;
+            const { orderedBy, product, cardNumber, cardName, cvc, homeAddress, postalCode, street, telephone, country, city, } = req.body;
             // Create a new order object
             const newOrder = new Order({
                 orderedBy,
@@ -76,7 +76,7 @@ class OrderController {
         try {
             const orders = await Order.find({}).populate(["orderedBy", "product"]);
             if (orders)
-                return response(res, 200, { ...ResTypes.successMessages.success, orders });
+                return response(res, 200, {orders});
         } catch (error) {
             console.log(error);
             return response(res, 500, error);
@@ -85,13 +85,33 @@ class OrderController {
 
     // Delete order by ID
     deleteOrder = async (req, res) => {
-        const { id } = req.body;
+        let session = null;
+        const { oid } = req.body;
         try {
-            const deletedOrder = await Order.findByIdAndDelete(id);
-            if (!deletedOrder) return response(res, 404, ResTypes.errors.no_order);
+            session = await mongoose.startSession();
+            session.startTransaction();
+            const deletedOrder = await Order.findByIdAndDelete(oid).session(session);
+            if (!deletedOrder) {
+                await session.abortTransaction();
+                session.endSession();
+                return response(res, 404, ResTypes.errors.not_found);
+            }
+            // Create and save a notification about the order deletion
+            const notification = new Notification({
+                description: `Your order has been deleted. and delivery Canceled By Dilivery Manager`,
+                toEmail: deletedOrder.orderedBy,
+                from: 'Dilivery Manager'
+            });
+            await notification.save({ session });
+            await session.commitTransaction();
+            session.endSession();
             return response(res, 200, ResTypes.successMessages.success);
         } catch (error) {
             console.log(error);
+            if (session) {
+                await session.abortTransaction();
+                session.endSession();
+            }
             return response(res, 500, error);
         }
     }

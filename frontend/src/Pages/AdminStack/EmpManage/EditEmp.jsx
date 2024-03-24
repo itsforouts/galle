@@ -11,7 +11,7 @@ export default function EditEmp() {
     const navigate = useNavigate();
     const [initialValues, setInitialValues] = useState({});
 
-    const { setValues,values, handleChange, handleSubmit, errors, touched } = useFormik({
+    const { setValues, values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: EmpYup.updateEmployee,
         onSubmit: async (values) => {

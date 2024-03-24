@@ -15,6 +15,7 @@ import Notification from './Pages/UserStack/Notification/Notification'
 import EmpManage from './Pages/AdminStack/EmpManage/EmpManage'
 import EditEmp from './Pages/AdminStack/EmpManage/EditEmp'
 import AddEmp from './Pages/AdminStack/EmpManage/AddEmp'
+import DeliveryManage from './Pages/AdminStack/DeliveryManage/DeliveryManage'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path='employee' element={<EmpManage/>} />
             <Route path='empAdd' element={<AddEmp/>} />
             <Route path='empEdit/:id' element={<EditEmp/>} />
+            <Route path='delivery' element={<DeliveryManage/>} />
           </Route>
         </Route>
         <Route path='/notallowed' element={<NotAuthorized />} />

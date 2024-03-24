@@ -45,6 +45,10 @@ const orderSchema = new mongoose.Schema(
             enum: ['kurunegala', 'colombo', 'kandy'],
             required: true,
         },
+        shipped: {
+            type: String,
+            default:false
+        },
     },
     {
         versionKey: false,

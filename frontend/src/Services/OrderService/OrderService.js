@@ -5,8 +5,9 @@ class OrderService {
     constructor() {
         BaseService.getBaseURL()
         this.GET_order = "order/getOrder"
-        this.GET_ALL = "order/getAllOrders"
+        this.GET_ALL = "order/getOrders"
         this.ADD_ORDER = "order/addOrder"
+        this.DELETE_ORDER="order/deleteOrder"
     }
     getAllOrders() {
         return axios.get(this.GET_ALL)
@@ -32,6 +33,12 @@ class OrderService {
             cvc: input.cvc
         };
         return axios.post(this.ADD_ORDER, data,BaseService.getHeader())
+    }
+    deleteOrder(input) {
+        let data = {
+            oid: input
+        };
+        return axios.delete(this.DELETE_ORDER, { ...BaseService.getHeader(), data: data });
     }
 }
 export default OrderService = new OrderService();

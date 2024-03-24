@@ -16,6 +16,6 @@ router.post('/addOrder', validateToken, validateSchema(OrderYup.createOrderSchem
 router.get('/getOrders', OrderController.getAllOrders);
 
 // Route to handle deleting an order by ID
-router.delete('/deleteOrder', validateToken, validateSchema(OrderYup.dltOrder), OrderController.deleteOrder);
+router.delete('/deleteOrder', validateToken, validateSchema(OrderYup.deleteOrder), OrderController.deleteOrder);
 
 export default router;
