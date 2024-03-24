@@ -9,47 +9,10 @@ export default function EditEmp() {
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [initialValues, setInitialValues] = useState({
-        name: '',
-        age: '',
-        salary: '',
-        nic: '',
-        photoUrl: '',
-        role: '',
-        gender: '',
-        increment: ''
-    });
+    const [initialValues, setInitialValues] = useState({});
 
-    useEffect(() => {
-        fetchEmployeeDetails();
-    }, [id]);
-
-    const fetchEmployeeDetails = async () => {
-        try {
-            setLoading(true)
-            const response = await EmpService.getEmployee(id);
-            if (response.data.code === 200) {
-                const employee = response.data.data.employee;
-                setInitialValues({
-                    name: employee.name,
-                    age: employee.age ,
-                    salary:employee.salary,
-                    nic:employee.nic,
-                    photoUrl:employee.photoUrl,
-                    role:employee.role,
-                    gender:employee.gender,
-                    increment:employee.increment
-                });
-                console.log(employee)
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false)
-        }
-    };
-    const { values, handleChange, handleSubmit, errors, touched } = useFormik({
-        initialValues,
+    const { setValues,values, handleChange, handleSubmit, errors, touched } = useFormik({
+        initialValues: initialValues,
         validationSchema: EmpYup.updateEmployee,
         onSubmit: async (values) => {
             setLoading(true);
@@ -67,9 +30,28 @@ export default function EditEmp() {
             } finally {
                 setLoading(false);
                 Toaster.dismissLoadingToast();
+                console.log('values:', values);
             }
         }
     })
+    const fetchEmployeeDetails = async () => {
+        try {
+            setLoading(true)
+            const response = await EmpService.getEmployee(id);
+            if (response.data.code === 200) {
+                const employee = response.data.data.employee;
+                setInitialValues(employee)
+                setValues(employee);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false)
+        }
+    };
+    useEffect(() => {
+        fetchEmployeeDetails();
+    }, [id]);
     return (
 
         <div className="body-wrapper">
@@ -227,7 +209,7 @@ export default function EditEmp() {
                                                         <button type="button" disabled={loading} onClick={() => {
                                                             navigate(-1)
                                                         }} className="btn btn-danger mx-2">Go Back</button>
-                                                        <button type="submit" disabled={loading} className="btn btn-success">Add Now</button>
+                                                        <button type="submit" disabled={loading} className="btn btn-warning">Edit Now</button>
                                                     </div>
                                                 </form>
                                             )

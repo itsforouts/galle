@@ -35,9 +35,9 @@ class EmpService {
         return axios.post(this.ADD_EMPLOYEE, data, BaseService.getHeader());
     }
 
-    updateEmployee(input) {
+    updateEmployee(id,input) {
         let data = {
-            id: input.id,
+            id: id,
             name: input.name,
             age: input.age,
             salary: input.salary,
